@@ -39,69 +39,70 @@ class TMDBApiClient {
 
   final http.Client _httpClient;
 
-  // /// Returns a list of words (and multiword expressions)
-  // /// from a given vocabulary that match a given set of constraints.
-  // Future<List<Word>> words({
-  //   String meansLike,
-  //   String soundsLike,
-  //   String spelledLike,
-  //   int max,
-  // }) async {
-  //   final queryParams = <String, String>{};
-  //   if (meansLike != null) {
-  //     queryParams.addAll({'ml': meansLike});
-  //   }
-  //   if (soundsLike != null) {
-  //     queryParams.addAll({'sl': soundsLike});
-  //   }
-  //   if (spelledLike != null) {
-  //     queryParams.addAll({'sp': spelledLike});
-  //   }
-  //   if (max != null) {
-  //     queryParams.addAll({'max': '$max'});
-  //   }
-  //   final uri = Uri.https(_authority, '/words', queryParams);
-  //   return _fetchWords(uri);
-  // }
+  /// Returns a list of words (and multiword expressions)
+  /// from a given vocabulary that match a given set of constraints.
+  Future<List<TMDBMovieOverview>> tmdbMovieOverview({
+    String meansLike,
+    String soundsLike,
+    String spelledLike,
+    int max,
+  }) async {
+    final queryParams = <String, String>{};
+    if (meansLike != null) {
+      queryParams.addAll({'ml': meansLike});
+    }
+    if (soundsLike != null) {
+      queryParams.addAll({'sl': soundsLike});
+    }
+    if (spelledLike != null) {
+      queryParams.addAll({'sp': spelledLike});
+    }
+    if (max != null) {
+      queryParams.addAll({'max': '$max'});
+    }
+    final uri = Uri.https(_authority, '/words', queryParams);
+    return _fetchWords(uri);
+  }
 
-  // /// Provides word suggestions given a partially-entered query.
-  // /// GET /sug?s=$query
-  // Future<List<Word>> suggestions(String query, {int max}) async {
-  //   final queryParams = <String, String>{'s': query};
-  //   if (max != null) {
-  //     queryParams.addAll({'max': '$max'});
-  //   }
-  //   final uri = Uri.https(_authority, '/sug', queryParams);
-  //   return _fetchWords(uri);
-  // }
+  /// Provides word suggestions given a partially-entered query.
+  /// GET /sug?s=$query
+  Future<List<Word>> suggestions(String query, {int max}) async {
+    final queryParams = <String, String>{'s': query};
+    if (max != null) {
+      queryParams.addAll({'max': '$max'});
+    }
+    final uri = Uri.https(_authority, '/sug', queryParams);
+    return _fetchWords(uri);
+  }
 
-  // Future<List<Word>> _fetchWords(Uri uri) async {
-  //   http.Response response;
+  Future<List<Word>> _fetchWords(Uri uri) async {
+    http.Response response;
 
-  //   try {
-  //     response = await _httpClient.get(uri);
-  //   } on Exception {
-  //     throw HttpException();
-  //   }
+    try {
+      response = await _httpClient.get(uri);
+    } on Exception {
+      throw HttpException();
+    }
 
-  //   if (response.statusCode != 200) {
-  //     throw HttpRequestFailure(response.statusCode);
-  //   }
+    if (response.statusCode != 200) {
+      throw HttpRequestFailure(response.statusCode);
+    }
 
-  //   List body;
+    List body;
 
-  //   try {
-  //     body = json.decode(response.body) as List;
-  //   } on Exception {
-  //     throw JsonDecodeException();
-  //   }
+    try {
+      body = json.decode(response.body) as List;
+    } on Exception {
+      throw JsonDecodeException();
+    }
 
-  //   try {
-  //     return body
-  //         .map((dynamic item) => Word.fromJson(item as Map<String, dynamic>))
-  //         .toList();
-  //   } on Exception {
-  //     throw JsonDeserializationException();
-  //   }
-  // }
+    try {
+      return body
+          .map((dynamic item) =>
+              TMDBMovieOverview.fromJson(item as Map<String, dynamic>))
+          .toList();
+    } on Exception {
+      throw JsonDeserializationException();
+    }
+  }
 }
