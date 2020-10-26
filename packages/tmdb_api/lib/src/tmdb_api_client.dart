@@ -106,3 +106,7 @@ class TMDBApiClient {
     }
   }
 }
+
+
+/// TODO concantenate this to the end of the result of [movieSearchUrl()]
+&api_key=$TMDB_API_KEY

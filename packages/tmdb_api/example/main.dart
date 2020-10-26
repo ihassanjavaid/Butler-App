@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:tmdb_api/tmdb_api.dart';
 
 void main() async {
-  final tmdbApiClient = TMDBApiClient();
+  final String tmdbAPIKey = "59a3a927d44125cb8b5788a5013b294a";
+
+  final tmdbApiClient = TMDBApiClient(tmdbAPIKey: tmdbAPIKey);
 
   /// TODO: Write example code for TMDBApiClient use
   try {

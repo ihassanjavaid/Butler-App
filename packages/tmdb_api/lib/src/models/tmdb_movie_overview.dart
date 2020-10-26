@@ -55,11 +55,13 @@ class TMDBMovieOverview {
   @JsonKey(name: "backdrop_path")
   final String backdropPath;
 
+  /// TODO: move this from the API data model to the app model when you set up the app data model
   /// Called from within [parseReleaseDate()] it returns the release year
   String getReleaseYear() {
     return releaseDate.split("-")[0];
   }
 
+  /// TODO: move this from the API data model to the app model when you set up the app data model
   /// Takes the release date, formats and returns the future release date or the past release year
   String parseReleaseDate() {
     try {
