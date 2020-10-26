@@ -24,59 +24,44 @@ class JsonDecodeException implements Exception {}
 class JsonDeserializationException implements Exception {}
 
 /// {@template datamuse_api_client}
-/// A Dart API Client for the datamuse REST API.
-/// Learn more at https://www.datamuse.com/api/
+/// A Dart API Client for The Movie Database REST API.
+/// Learn more at https://www.themoviedb.org/documentation/api
 /// {@endtemplate}
 class TMDBApiClient {
-  /// {@macro datamuse_api_client}
-  TMDBApiClient({http.Client httpClient})
-      : _httpClient = httpClient ?? http.Client();
+  /// {@macro tmdb_api_client}
+  TMDBApiClient({
+    http.Client httpClient,
+    String tmdbAPIKey,
+  })  : assert(tmdbAPIKey != null),
+        _httpClient = httpClient ?? http.Client(),
+        _tmdbAPIKey = tmdbAPIKey;
 
-  // TODO: Impliment the API Client
+  static const _authority = "api.themoviedb.org";
 
-  /// TODO: Change [_authority] to the tmdb web address
-  static const _authority = 'api.datamuse.com';
-
+  final String _tmdbAPIKey;
   final http.Client _httpClient;
 
-  /// Returns a list of words (and multiword expressions)
-  /// fr
-  /// ==om a given vocabulary that match a given set of constraints.
-  Future<List<TMDBMovieOverview>> tmdbMovieOverview({
-    String meansLike,
-    String soundsLike,
-    String spelledLike,
-    int max,
+  /// Returns a list of movies from TMDB that match the given query
+  Future<List<TMDBMovieOverview>> searchMovies({
+    String query,
   }) async {
     final queryParams = <String, String>{};
-    if (meansLike != null) {
-      queryParams.addAll({'ml': meansLike});
+    if (_tmdbAPIKey != null) {
+      queryParams.addAll({'api_key': _tmdbAPIKey});
     }
-    if (soundsLike != null) {
-      queryParams.addAll({'sl': soundsLike});
+    queryParams.addAll({'language': 'en_US'});
+    if (query != null) {
+      queryParams.addAll({'query': query});
     }
-    if (spelledLike != null) {
-      queryParams.addAll({'sp': spelledLike});
-    }
-    if (max != null) {
-      queryParams.addAll({'max': '$max'});
-    }
-    final uri = Uri.https(_authority, '/words', queryParams);
-    return _fetchWords(uri);
+    queryParams.addAll({'page': '1'});
+    queryParams.addAll({'include_adult': 'false'});
+
+    final uri = Uri.https(_authority, '/3/search/movie', queryParams);
+    print(uri);
+    return _fetchMovies(uri);
   }
 
-  /// Provides word suggestions given a partially-entered query.
-  /// GET /sug?s=$query
-  Future<List<Word>> suggestions(String query, {int max}) async {
-    final queryParams = <String, String>{'s': query};
-    if (max != null) {
-      queryParams.addAll({'max': '$max'});
-    }
-    final uri = Uri.https(_authority, '/sug', queryParams);
-    return _fetchWords(uri);
-  }
-
-  Future<List<Word>> _fetchWords(Uri uri) async {
+  Future<List<TMDBMovieOverview>> _fetchMovies(Uri uri) async {
     http.Response response;
 
     try {
@@ -86,6 +71,7 @@ class TMDBApiClient {
     }
 
     if (response.statusCode != 200) {
+      print(response.statusCode);
       throw HttpRequestFailure(response.statusCode);
     }
 
@@ -107,7 +93,3 @@ class TMDBApiClient {
     }
   }
 }
-
-
-/// TODO concantenate this to the end of the result of [movieSearchUrl()]
-&api_key=$TMDB_API_KEY

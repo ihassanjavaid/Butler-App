@@ -7,11 +7,10 @@ void main() async {
 
   final tmdbApiClient = TMDBApiClient(tmdbAPIKey: tmdbAPIKey);
 
-  /// TODO: Write example code for TMDBApiClient use
   try {
-    final words = await tmdbApiClient.words(meansLike: 'cats', max: 1);
-    for (final word in words) {
-      print(word.word);
+    final movies = await tmdbApiClient.searchMovies(query: "The Hangover");
+    for (final movie in movies) {
+      print(movie.title);
     }
   } on Exception catch (e) {
     print(e);
