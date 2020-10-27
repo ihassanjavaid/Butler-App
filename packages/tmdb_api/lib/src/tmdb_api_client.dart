@@ -42,8 +42,9 @@ class TMDBApiClient {
   final http.Client _httpClient;
 
   /// Returns a list of movies from TMDB that match the given query
-  Future<List<TMDBMovieOverview>> searchMovies({
+  Future<TMDBMovieResponse> searchMovies({
     String query,
+    int page,
   }) async {
     final queryParams = <String, String>{};
     if (_tmdbAPIKey != null) {
@@ -53,7 +54,9 @@ class TMDBApiClient {
     if (query != null) {
       queryParams.addAll({'query': query});
     }
-    queryParams.addAll({'page': '1'});
+    if (page != null) {
+      queryParams.addAll({'page': page.toString()});
+    }
     queryParams.addAll({'include_adult': 'false'});
 
     final uri = Uri.https(_authority, '/3/search/movie', queryParams);
@@ -61,7 +64,7 @@ class TMDBApiClient {
     return _fetchMovies(uri);
   }
 
-  Future<List<TMDBMovieOverview>> _fetchMovies(Uri uri) async {
+  Future<TMDBMovieResponse> _fetchMovies(Uri uri) async {
     http.Response response;
 
     try {
@@ -71,23 +74,21 @@ class TMDBApiClient {
     }
 
     if (response.statusCode != 200) {
+      /// ! DELETE THE PRINT STATEMENT WHEN THE CODE WORKS
       print(response.statusCode);
       throw HttpRequestFailure(response.statusCode);
     }
 
-    List body;
+    dynamic body;
 
     try {
-      body = json.decode(response.body) as List;
+      body = json.decode(response.body);
     } on Exception {
       throw JsonDecodeException();
     }
 
     try {
-      return body
-          .map((dynamic item) =>
-              TMDBMovieOverview.fromJson(item as Map<String, dynamic>))
-          .toList();
+      return TMDBMovieResponse.fromJson(body);
     } on Exception {
       throw JsonDeserializationException();
     }

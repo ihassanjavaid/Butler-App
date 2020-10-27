@@ -8,9 +8,12 @@ void main() async {
   final tmdbApiClient = TMDBApiClient(tmdbAPIKey: tmdbAPIKey);
 
   try {
-    final movies = await tmdbApiClient.searchMovies(query: "The Hangover");
-    for (final movie in movies) {
-      print(movie.title);
+    final results = await tmdbApiClient.searchMovies(
+      query: "uncle",
+    );
+    for (var result = 0; result < results.results.length; result++) {
+      print(results.results[result].posterPath);
+      //print(results.results[result].overview);
     }
   } on Exception catch (e) {
     print(e);
