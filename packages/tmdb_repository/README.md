@@ -1,4 +1,4 @@
-# media_repository
+# tmdb_repository
 
 A new Flutter package project.
 
