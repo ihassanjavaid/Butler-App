@@ -6,13 +6,14 @@ void main() async {
   final String tmdbAPIKey = "59a3a927d44125cb8b5788a5013b294a";
 
   final tmdbApiClient = TMDBApiClient(tmdbAPIKey: tmdbAPIKey);
+  final String query = "The Hangover";
 
   try {
     final results = await tmdbApiClient.searchMovies(
-      query: "uncle",
+      query: query,
     );
     for (var result = 0; result < results.results.length; result++) {
-      print(results.results[result].posterPath);
+      print(results.results[result].title);
       //print(results.results[result].overview);
     }
   } on Exception catch (e) {
