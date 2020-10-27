@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:tmdb_api/tmdb_api.dart';
 
 void main() async {
   final String tmdbAPIKey = "59a3a927d44125cb8b5788a5013b294a";
 
   final tmdbApiClient = TMDBApiClient(tmdbAPIKey: tmdbAPIKey);
-  final String query = "The hangover";
+  final String query = "The Hangover";
 
   try {
     final results = await tmdbApiClient.searchMovies(

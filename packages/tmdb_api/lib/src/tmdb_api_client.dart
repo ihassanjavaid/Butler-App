@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:tmdb_api/tmdb_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 
 /// TODO: Add code to protect against an empty query ("")
 
@@ -33,7 +34,7 @@ class TMDBApiClient {
   /// {@macro tmdb_api_client}
   TMDBApiClient({
     http.Client httpClient,
-    String tmdbAPIKey,
+    @required String tmdbAPIKey,
   })  : assert(tmdbAPIKey != null),
         _httpClient = httpClient ?? http.Client(),
         _tmdbAPIKey = tmdbAPIKey;
@@ -45,8 +46,8 @@ class TMDBApiClient {
 
   /// Returns a Movie Response object containing a list of movies from TMDB that match the given query
   Future<TMDBMovieResponse> searchMovies({
-    String language,
     String query,
+    String language,
     int page,
     bool includeAdult,
     String region,
