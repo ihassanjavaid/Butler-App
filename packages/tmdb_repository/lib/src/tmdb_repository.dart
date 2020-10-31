@@ -1,7 +1,7 @@
 import 'package:tmdb_api/tmdb_api.dart';
 import 'package:meta/meta.dart';
 
-/// Thrown when an error occurs while performing a search.
+/// Thrown when an error occurs while performing a searchMovies.
 class SearchException implements Exception {}
 
 /// {@template tmdb_repository}
@@ -18,9 +18,9 @@ class TMDBRepository {
   final TMDBApiClient _tmdbApiClient;
 
   /// Returns a list of movies for the provided [query].
-  /// Other search filter can be provided as well (but are not necessary).
+  /// Other searchMovies filter can be provided as well (but are not necessary).
   /// Throws a [SearchException] if an error occurs.
-  Future<TMDBMovieResponse> search({
+  Future<TMDBMovieResponse> searchMovies({
     @required String query,
     String language,
     int page,

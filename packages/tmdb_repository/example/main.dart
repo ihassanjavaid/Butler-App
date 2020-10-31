@@ -5,10 +5,10 @@ void main() async {
   final String tmdbAPIKey = "59a3a927d44125cb8b5788a5013b294a";
 
   final tmdbRepository = TMDBRepository(tmdbAPIKey: tmdbAPIKey);
-  final String query = "The Hangover";
+  final String query = "The Gre";
 
   try {
-    final results = await tmdbRepository.search(
+    final results = await tmdbRepository.searchMovies(
       query: query,
     );
     for (var result = 0; result < results.results.length; result++) {

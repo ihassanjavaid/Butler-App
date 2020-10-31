@@ -121,4 +121,71 @@ class TMDBApiClient {
       throw JsonDeserializationException();
     }
   }
+
+  Future<TMDBTVResponse> searchTV({
+    String query,
+    String language,
+    int page,
+    bool includeAdult,
+    int firstAirDate,
+  }) async {
+    final queryParams = <String, String>{};
+    // returns 401 status code (unauthorised) if no API Key supplied.
+    if (_tmdbAPIKey != null) {
+      queryParams.addAll({'api_key': _tmdbAPIKey});
+    }
+    // defaults to "language=en-US".
+    if (language != null) {
+      queryParams.addAll({'language': language});
+    }
+    // If query is an empty string or null we get back a 422 status code. "Query must be provided". Minimum string length is 1.
+    if (query != null) {
+      queryParams.addAll({'query': query});
+    }
+    // defaults to "page=1". 20 results to a page.
+    if (page != null) {
+      queryParams.addAll({'page': page.toString()});
+    }
+    // defaults to "inculde_adult=false". Supply 'true' to show adult content in results.
+    if (includeAdult != null) {
+      queryParams.addAll({'include_adult': includeAdult.toString()});
+    }
+    // no default. Specify region to show region specific release dates.
+    if (firstAirDate != null) {
+      queryParams.addAll({'first_air_date': firstAirDate.toString()});
+    }
+
+    final uri = Uri.https(_authority, '/3/search/tv', queryParams);
+    print(uri);
+    return _fetchTV(uri);
+  }
+
+  Future<TMDBTVResponse> _fetchTV(Uri uri) async {
+    http.Response response;
+
+    try {
+      response = await _httpClient.get(uri);
+    } on Exception {
+      throw HttpException();
+    }
+
+    /// TODO: Add specific responses to handle other status codes
+    if (response.statusCode != 200) {
+      throw HttpRequestFailure(response.statusCode);
+    }
+
+    dynamic body;
+
+    try {
+      body = json.decode(response.body);
+    } on Exception {
+      throw JsonDecodeException();
+    }
+
+    try {
+      return TMDBTVResponse.fromJson(body);
+    } on Exception {
+      throw JsonDeserializationException();
+    }
+  }
 }
