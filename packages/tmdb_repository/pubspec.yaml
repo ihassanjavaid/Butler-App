@@ -8,4 +8,5 @@ environment:
 dependencies:
   tmdb_api:
     path: ../tmdb_api
+  equatable: ^1.2.5
   meta: ^1.2.3

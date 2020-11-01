@@ -28,7 +28,7 @@ class Butler extends StatelessWidget {
           ),
           textTheme: GoogleFonts.nunitoTextTheme(),
         ),
-        home: SearchPage(),
+        // home: SearchPage(),
       ),
     );
   }

@@ -1,15 +1,21 @@
-part of 'search_bloc.dart';
+// part of 'search_bloc.dart';
 
-abstract class SearchEvent extends Equatable {
-  const SearchEvent();
-}
+// abstract class SearchEvent extends Equatable {
+//   const SearchEvent();
+// }
 
-class SearchTermChanged extends SearchEvent {
-  const SearchTermChanged(this.query);
-  final String query;
+// class SearchTermChanged extends SearchEvent {
+//   const SearchTermChanged(this.term);
+//   final String term;
 
-  @override
-  List<Object> get props => [query];
-}
+//   @override
+//   List<Object> get props => [term];
+// }
 
-class SearchFetchedMore extends SearchEvent {}
+// class FetchedMoreResults extends SearchEvent {
+//   const FetchedMoreResults(this.term);
+//   final String term;
+
+//   @override
+//   List<Object> get props => [term];
+// }
