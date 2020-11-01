@@ -1,10 +1,12 @@
-import 'package:intl/intl.dart';
+import 'package:equatable/equatable.dart';
+
+/// TODO: Remove properties that are not used.
 
 /// {@template word}
 /// MovieOverview returned by The Movie Database API.
-/// Each [TMDBMovieOverview] contains the Movie [id], [video], [title], [popularity], [adult], [overview], [posterPath], [releaseData], [voteCount], [voteAverage], [originalLanguage], [originalTitle], [genreIds] & [backdropPath].
+/// Each [MovieOverview] contains the Movie [id], [video], [title], [popularity], [adult], [overview], [posterPath], [releaseData], [voteCount], [voteAverage], [originalLanguage], [originalTitle], [genreIds] & [backdropPath].
 /// {@endtemplate}
-class MovieOverview {
+class MovieOverview extends Equatable {
   /// {@macro TMDBMovieOverview}.
   const MovieOverview(
       {this.voteCount,
@@ -38,23 +40,21 @@ class MovieOverview {
   final List<int> genreIds;
   final String backdropPath;
 
-  /// Called from within [parseReleaseDate()] it returns the release year
-  String getReleaseYear() {
-    return releaseDate.split("-")[0];
-  }
-
-  /// Takes the release date, formats and returns the future release date or the past release year
-  String parseReleaseDate() {
-    try {
-      var parsedReleasedDate = DateFormat("yyyy-M-dd").parse(releaseDate);
-      bool isInTheFuture = parsedReleasedDate.isAfter(DateTime.now());
-      if (isInTheFuture) {
-        return "${DateFormat("MMM dd yyyy").format(parsedReleasedDate)}";
-      } else {
-        return getReleaseYear();
-      }
-    } on Exception {
-      return "";
-    }
-  }
+  @override
+  List<Object> get props => [
+        id,
+        video,
+        title,
+        popularity,
+        adult,
+        overview,
+        posterPath,
+        releaseDate,
+        voteCount,
+        voteAverage,
+        originalLanguage,
+        originalTitle,
+        genreIds,
+        backdropPath,
+      ];
 }

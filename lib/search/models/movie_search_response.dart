@@ -46,7 +46,16 @@ class MovieSearchResponse extends Equatable {
     );
   }
 
-  /// TODO: Possibly implement [MovieSearchResponse] copyWith() function
+  ///
+  /// TODO: Possible add fucntions for hasReached max like in the Repo layer models
+  bool get isEmpty => !hasResults();
+
+  hasResults() {
+    return results != null && results.length > 0;
+  }
+
+  /// Returns [true] if there are more results to fetch
+  bool get hasMoreResults => page < totalPages;
 
   @override
   List<Object> get props => [
