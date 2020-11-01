@@ -1,72 +1,75 @@
-// import 'dart:async';
+import 'dart:async';
 
-// import 'package:bloc/bloc.dart';
-// import 'package:butler/search/models/movie_overview.dart';
-// import 'package:equatable/equatable.dart';
-// import 'package:fluttersaurus/search/models/suggestion.dart';
-// import 'package:fluttersaurus/search/search.dart';
-// import 'package:rxdart/rxdart.dart';
-// import 'package:thesaurus_repository/thesaurus_repository.dart';
+import 'package:bloc/bloc.dart';
+import 'package:butler/search/models/models.dart';
+import 'package:equatable/equatable.dart';
+import 'package:butler/search/search.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:tmdb_repository/tmdb_repository.dart'
+    hide MovieSearchResponse, MovieOverview;
 
-// part 'search_event.dart';
-// part 'search_state.dart';
+part 'search_event.dart';
+part 'search_state.dart';
 
-// class SearchBloc extends Bloc<SearchEvent, SearchState> {
-//   SearchBloc(this._thesaurusRepository)
-//       : assert(_thesaurusRepository != null),
-//         super(const SearchState.initial());
+/// TODO: figure out a way to supply not just movies but everything else using one search bloc instead of a bloc for each type of search.
 
-//   final ThesaurusRepository _thesaurusRepository;
+class SearchBloc extends Bloc<SearchEvent, SearchState> {
+  SearchBloc(this._tmdbRepository)
+      : assert(_tmdbRepository != null),
+        super(const SearchState.initial());
 
-//   @override
-//   Stream<Transition<SearchEvent, SearchState>> transformEvents(
-//     Stream<SearchEvent> events,
-//     TransitionFunction<SearchEvent, SearchState> transitionFn,
-//   ) {
-//     return events
-//         .debounceTime(const Duration(milliseconds: 350))
-//         .switchMap(transitionFn);
-//   }
+  final TMDBRepository _tmdbRepository;
 
-//   @override
-//   Stream<SearchState> mapEventToState(SearchEvent event) async* {
-//     if (event is SearchTermChanged) {
-//       yield* _mapSearchTermChangedToState(event, state);
-//     }
-//     if (event is FetchedMoreResults) {
-//       yield* _mapFetchedMoreResultsToState(event, state);
-//     }
-//   }
+  @override
+  Stream<Transition<SearchEvent, SearchState>> transformEvents(
+    Stream<SearchEvent> events,
+    TransitionFunction<SearchEvent, SearchState> transitionFn,
+  ) {
+    return events
+        .debounceTime(const Duration(milliseconds: 350))
+        .switchMap(transitionFn);
+  }
 
-//   Stream<SearchState> _mapSearchTermChangedToState(
-//     SearchTermChanged event,
-//     SearchState state,
-//   ) async* {
-//     if (event.term.isEmpty) {
-//       yield const SearchState.initial();
-//       return;
-//     }
+  @override
+  Stream<SearchState> mapEventToState(SearchEvent event) async* {
+    if (event is SearchTermChanged) {
+      yield* _mapSearchTermChangedToState(event, state);
+    }
+    // if (event is FetchedMoreResults) {
+    //   yield* _mapFetchedMoreResultsToState(event, state);
+    // }
+  }
 
-//     if (state.status != SearchStatus.success) {
-//       yield const SearchState.loading();
-//     }
+  Stream<SearchState> _mapSearchTermChangedToState(
+    SearchTermChanged event,
+    SearchState state,
+  ) async* {
+    if (event.term.isEmpty) {
+      yield const SearchState.initial();
+      return;
+    }
 
-//     try {
-//       final results = await _thesaurusRepository.search(term: event.term);
-//       final suggestions = results.map((result) => Suggestion(result)).toList();
-//       yield SearchState.success(suggestions);
-//     } on Exception {
-//       yield const SearchState.failure();
-//     }
-//   }
+    if (state.status != SearchStatus.success) {
+      yield const SearchState.loading();
+    }
 
-//   Stream<SearchState> _mapFetchedMoreResultsToState(
-//     FetchedMoreResults event,
-//     SearchState state,
-//   ) async* {
-//     if (event.term.isEmpty) {
-//       yield const SearchState.initial();
-//       return;
-//     }
-//   }
-// }
+    try {
+      final results = MovieSearchResponse.fromRepository(
+          await _tmdbRepository.searchMovies(query: event.term));
+      final movies = results.results;
+      yield SearchState.success(movies);
+    } on Exception {
+      yield const SearchState.failure();
+    }
+  }
+
+  // Stream<SearchState> _mapFetchedMoreResultsToState(
+  //   FetchedMoreResults event,
+  //   SearchState state,
+  // ) async* {
+  //   if (event.term.isEmpty) {
+  //     yield const SearchState.initial();
+  //     return;
+  //   }
+  // }
+}

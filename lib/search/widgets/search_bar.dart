@@ -15,7 +15,7 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       key: const Key('searchBar_textField'),
-      style: GoogleFonts.nunito(),
+      style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         filled: true,
         border: OutlineInputBorder(

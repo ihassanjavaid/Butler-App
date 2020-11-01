@@ -19,16 +19,18 @@ class Butler extends StatelessWidget {
     return RepositoryProvider.value(
       value: _tmdbRepository,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(
-            brightness: Brightness.light,
+            brightness: Brightness.dark,
             color: Colors.transparent,
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black87),
           ),
           textTheme: GoogleFonts.nunitoTextTheme(),
         ),
-        // home: SearchPage(),
+        home: SearchPage(),
       ),
     );
   }
