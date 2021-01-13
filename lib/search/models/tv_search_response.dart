@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'tv_overview.dart';
-import 'package:tmdb_repository/tmdb_repository.dart'
+import 'package:media_repository/media_repository.dart'
     hide TVSearchResponse, TVOverview;
-import 'package:tmdb_repository/tmdb_repository.dart' as tmdb_repository;
+import 'package:media_repository/media_repository.dart' as tmdb_repository;
 
 /// ? Possibly delete [totalResults]. Not sure if we need it yet
 

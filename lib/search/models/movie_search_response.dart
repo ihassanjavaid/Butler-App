@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'movie_overview.dart';
-import 'package:tmdb_repository/tmdb_repository.dart'
+import 'package:media_repository/media_repository.dart'
     hide MovieSearchResponse, MovieOverview;
-import 'package:tmdb_repository/tmdb_repository.dart' as tmdb_repository;
+import 'package:media_repository/media_repository.dart' as media_repository;
 
 /// ? Possibly delete [totalResults]. Not sure if we need it yet
 
@@ -20,7 +20,7 @@ class MovieSearchResponse extends Equatable {
   });
 
   factory MovieSearchResponse.fromRepository(
-      tmdb_repository.MovieSearchResponse movieSearchResponse) {
+      media_repository.MovieSearchResponse movieSearchResponse) {
     return MovieSearchResponse(
       page: movieSearchResponse.page,
       totalPages: movieSearchResponse.totalPages,

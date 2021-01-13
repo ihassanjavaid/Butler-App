@@ -1,14 +1,14 @@
 import 'dart:io';
-import 'package:tmdb_repository/tmdb_repository.dart';
+import 'package:media_repository/media_repository.dart';
 
 void main() async {
   final String tmdbAPIKey = "59a3a927d44125cb8b5788a5013b294a";
 
-  final tmdbRepository = TMDBRepository(tmdbAPIKey: tmdbAPIKey);
+  final mediaRepository = MediaRepository(tmdbAPIKey: tmdbAPIKey);
   final String query = "The Great Gatsby";
 
   try {
-    final results = await tmdbRepository.searchMovies(
+    final results = await mediaRepository.searchMovies(
       query: query,
     );
     for (var result = 0; result < results.results.length; result++) {

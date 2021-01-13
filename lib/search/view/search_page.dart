@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butler/search/search.dart';
-import 'package:tmdb_repository/tmdb_repository.dart';
+import 'package:media_repository/media_repository.dart';
 
 class SearchPage extends StatelessWidget {
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => SearchPage());
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -17,8 +21,6 @@ class SearchPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset('assets/icons/fluttersaurus.png', width: 48),
-                const SizedBox(width: 8),
                 Text(
                   'Butler',
                   style: textTheme.headline4.copyWith(
@@ -31,7 +33,7 @@ class SearchPage extends StatelessWidget {
             Flexible(
               child: BlocProvider(
                 create: (context) => SearchBloc(
-                  context.repository<TMDBRepository>(),
+                  context.read<MediaRepository>(),
                 ),
                 child: SearchForm(),
               ),

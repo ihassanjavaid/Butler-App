@@ -1,6 +1,6 @@
 import 'package:tmdb_api/tmdb_api.dart';
 import 'package:meta/meta.dart';
-import 'package:tmdb_repository/src/models/models.dart';
+import 'package:media_repository/src/models/models.dart';
 
 /// Thrown when an error occurs while performing a searchMovies.
 class SearchException implements Exception {}
@@ -8,9 +8,9 @@ class SearchException implements Exception {}
 /// {@template tmdb_repository}
 /// A Dart class which exposes methods to implement The Movie Database functionality.
 /// {@endtemplate}
-class TMDBRepository {
+class MediaRepository {
   /// {@macro tmdb_repository}
-  TMDBRepository({
+  MediaRepository({
     TMDBApiClient tmdbApiClient,
     @required String tmdbAPIKey,
   })  : assert(tmdbAPIKey != null),

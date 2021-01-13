@@ -5,7 +5,7 @@ import 'package:butler/search/models/models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:butler/search/search.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:tmdb_repository/tmdb_repository.dart'
+import 'package:media_repository/media_repository.dart'
     hide MovieSearchResponse, MovieOverview;
 
 part 'search_event.dart';
@@ -18,7 +18,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       : assert(_tmdbRepository != null),
         super(const SearchState.initial());
 
-  final TMDBRepository _tmdbRepository;
+  final MediaRepository _tmdbRepository;
 
   @override
   Stream<Transition<SearchEvent, SearchState>> transformEvents(

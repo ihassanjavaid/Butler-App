@@ -1,5 +1,5 @@
-name: tmdb_repository
-description: A Dart package for The Movie Database domain.
+name: media_repository
+description: A Dart package for communicating with various media api's.
 version: 0.0.1
 
 environment:
