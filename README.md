@@ -1,6 +1,6 @@
-# Blutter app
+# butler_app
 
-A Flutter project that detects songs, movies, audiobooks and games through APIs.
+A new Flutter project.
 
 ## Getting Started
 

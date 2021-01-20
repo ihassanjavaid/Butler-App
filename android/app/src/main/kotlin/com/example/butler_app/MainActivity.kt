@@ -1,4 +1,4 @@
-package com.example.buttler_app
+package com.example.butler_app
 
 import io.flutter.embedding.android.FlutterActivity
 
