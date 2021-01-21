@@ -24,6 +24,7 @@ class ModifiedTextField extends StatelessWidget {
     this.focusNode,
     this.autoFocus,
     this.obscureText,
+    this.borderRadius = 12.0,
   }) : _textController = textController;
 
   final TextEditingController _textController;
@@ -41,6 +42,7 @@ class ModifiedTextField extends StatelessWidget {
   final FocusNode focusNode;
   final bool autoFocus;
   final bool obscureText;
+  final double borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,7 @@ class ModifiedTextField extends StatelessWidget {
                   ? this.borderColour
                   : Colors.black54,
             ),
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(this.borderRadius),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(

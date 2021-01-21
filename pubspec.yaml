@@ -11,9 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  bloc: ^6.1.1
+  circular_menu: ^1.1.2
   circular_profile_avatar: ^1.0.8
   cupertino_icons: ^1.0.0
-  circular_menu: ^1.1.2
+  flutter_bloc: ^6.1.1
   font_awesome_flutter: ^8.11.0
 
 dev_dependencies:
