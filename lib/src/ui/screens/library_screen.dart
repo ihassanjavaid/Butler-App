@@ -1,5 +1,5 @@
+import 'package:butler_app/src/resources/utilities/constants.dart';
 import 'package:butler_app/src/ui/widgets/search_bar.dart';
-import 'package:butler_app/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class LibraryScreen extends StatefulWidget {
@@ -73,7 +73,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ],
             ),
             SizedBox(
-              height: size.height/24 - 10,
+              height: size.height / 24 - 10,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),

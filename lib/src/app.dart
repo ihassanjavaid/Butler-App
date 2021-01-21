@@ -1,4 +1,5 @@
 import 'package:butler_app/src/bloc/auth_bloc.dart';
+import 'package:butler_app/src/resources/auth_repository.dart';
 import 'package:butler_app/src/ui/screens/auth_screen.dart';
 import 'package:butler_app/src/ui/screens/landing_screen.dart';
 import 'package:butler_app/src/ui/screens/library_screen.dart';
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => AuthBloc(),
+          create: (_) => AuthBloc(AuthRepository()),
         ),
       ],
       child: MaterialApp(

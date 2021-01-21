@@ -1,5 +1,5 @@
+import 'package:butler_app/src/resources/utilities/constants.dart';
 import 'package:butler_app/src/ui/screens/library_screen.dart';
-import 'package:butler_app/src/utilities/constants.dart';
 import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

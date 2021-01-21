@@ -1,4 +1,4 @@
-import 'package:butler_app/src/utilities/constants.dart';
+import 'package:butler_app/src/resources/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class RoundedRectangleButton extends StatelessWidget {
