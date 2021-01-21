@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   circular_profile_avatar: ^1.0.8
   cupertino_icons: ^1.0.0
+  circular_menu: ^1.1.2
+  font_awesome_flutter: ^8.11.0
 
 dev_dependencies:
   flutter_test:
