@@ -3,7 +3,6 @@ import 'package:butler_app/src/utilities/constants.dart';
 import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -56,28 +55,24 @@ class _MenuScreenState extends State<MenuScreen> {
               icon: Icons.menu_book,
               color: kBackgroundColor,
               iconSize: 42,
-
             ),
             CircularMenuItem(
               onTap: () {},
               icon: Icons.queue_music,
               color: kBackgroundColor,
               iconSize: 42,
-
             ),
             CircularMenuItem(
               onTap: () {},
               icon: Icons.videogame_asset,
               color: kBackgroundColor,
               iconSize: 42,
-
             ),
             CircularMenuItem(
               onTap: () {},
               icon: Icons.tv,
               color: kBackgroundColor,
               iconSize: 42,
-
             ),
             CircularMenuItem(
               onTap: () {
@@ -86,7 +81,6 @@ class _MenuScreenState extends State<MenuScreen> {
               icon: FontAwesomeIcons.user,
               color: kBackgroundColor,
               iconSize: 40,
-
             ),
           ],
         ),
