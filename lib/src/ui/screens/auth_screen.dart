@@ -14,13 +14,9 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: _setupPageContent(context),
-          ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: _setupPageContent(context),
         ),
       ),
     );
@@ -38,9 +34,9 @@ class AuthScreen extends StatelessWidget {
         Widget contentWidget;
 
         if (state is LoginState) {
-          contentWidget = _getWidgets(context, AuthType.Login);
+          contentWidget = _getContentWidget(context, AuthType.Login);
         } else if (state is RegisterState) {
-          contentWidget = _getWidgets(context, AuthType.Register);
+          contentWidget = _getContentWidget(context, AuthType.Register);
         } else if (state is AuthLoading) {
           contentWidget = _getLoadingWidget();
         }
@@ -62,11 +58,17 @@ class AuthScreen extends StatelessWidget {
     );
   }
 
-  /// Method responsible for returning the widgets based on the current
-  /// state i.e. returning login widgets for login state and register
-  /// widgets for register state.
+  Widget _getContentWidget(BuildContext context, AuthType authType) {
+    return ListView(
+      children: _getContentWidgets(context, authType),
+    );
+  }
+
+  /// Method responsible for returning the list of widgets based on the
+  /// current state i.e. returning login widgets for login state and
+  /// register widgets for register state.
   ///
-  Widget _getWidgets(BuildContext context, AuthType authType) {
+  List<Widget> _getContentWidgets(BuildContext context, AuthType authType) {
     List<Widget> screenWidgets = [
       Hero(
         tag: 'logo',
@@ -111,11 +113,7 @@ class AuthScreen extends StatelessWidget {
     screenWidgets.add(authCredentialsWidget);
     screenWidgets.addAll(authControlWidgets);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: screenWidgets,
-    );
+    return screenWidgets;
   }
 
   /// Method to get login widgets.
