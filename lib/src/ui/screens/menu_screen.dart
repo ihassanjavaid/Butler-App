@@ -58,7 +58,9 @@ class MenuScreen extends StatelessWidget {
                 iconSize: 42,
               ),
               CircularMenuItem(
-                onTap: () {},
+                onTap: () {
+                  BlocProvider.of<MenuBloc>(context).add(BookEvent());
+                },
                 icon: Icons.menu_book,
                 color: kBackgroundColor,
                 iconSize: 42,
