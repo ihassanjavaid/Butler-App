@@ -14,9 +14,18 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: _setupPageContent(context),
+        child: LayoutBuilder(
+          builder: (_, BoxConstraints constraints) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(12.0),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: _setupPageContent(context),
+              ),
+            );
+          },
         ),
       ),
     );
