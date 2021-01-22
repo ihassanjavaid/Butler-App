@@ -13,6 +13,14 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
   Stream<MenuState> mapEventToState(
     MenuEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is MovieEvent) {
+      yield MovieState();
+    } else if (event is MusicEvent) {
+      yield MusicState();
+    } else if (event is GameEvent) {
+      yield GameState();
+    } else if (event is BookEvent) {
+      yield BookState();
+    }
   }
 }
