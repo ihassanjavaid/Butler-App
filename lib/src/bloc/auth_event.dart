@@ -24,23 +24,22 @@ class AttemptAuthEvent extends AuthEvent {
 }
 
 class InfoEntryEvent extends AuthEvent {
-  final String info;
-  final InfoType infoType;
+  final String credential;
+  final InfoType credentialType;
 
-  InfoEntryEvent(
-    this.info,
-    this.infoType,
-  );
+  InfoEntryEvent(this.credential, this.credentialType);
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is InfoEntryEvent && o.info == info && o.infoType == infoType;
+    return o is InfoEntryEvent &&
+        o.credential == credential &&
+        o.credentialType == credentialType;
   }
 
   @override
-  int get hashCode => info.hashCode ^ infoType.hashCode;
+  int get hashCode => credential.hashCode ^ credentialType.hashCode;
 }
 
 class InfoEnteredEvent extends AuthEvent {}
