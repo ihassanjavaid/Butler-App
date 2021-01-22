@@ -14,98 +14,113 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: LayoutBuilder(
-          builder: (_, constraints) {
-            return Container(
-              constraints: constraints,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: BlocBuilder<AuthBloc, AuthState>(builder: (_, state) {
-                  if (state is AuthLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is AuthSuccess) {
-                    // Navigator.pop(context);
-                    Navigator.pushReplacementNamed(context, MenuScreen.id);
-                  }
-                  return getContent(context);
-                }),
-              ),
-            );
-          },
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: _setupPageContent(context),
+          ),
         ),
       ),
     );
   }
 
-  Widget getContent(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // Logo
-        Hero(
-          tag: 'logo',
-          child: CircleAvatar(
-            child: Text('B'),
-            radius: 36.0,
-          ),
-        ),
-        SizedBox(
-          height: 24.0,
-        ),
-        Text(
-          'Butler',
-          style: kTitleTextStyle,
-          textAlign: TextAlign.center,
-        ),
-        Spacer(),
-        Expanded(
-          flex: 2,
-          child: BlocBuilder<AuthBloc, AuthState>(
-            builder: (_, state) {
-              List<Widget> children = [];
+  /// Method reponsible for setting up the screen content based on
+  /// the current event. If the event is of login type, the method
+  /// will populate the screen with login widgets while if the event
+  /// is register, the method will populate the screen with
+  /// registeration widgets.
+  ///
+  Widget _setupPageContent(BuildContext context) {
+    return BlocConsumer<AuthBloc, AuthState>(
+      builder: (_, state) {
+        Widget contentWidget;
 
-              if (state is LoginState) {
-                children = getLoginWidgets(context);
-              } else if (state is RegisterState) {
-                children = getRegistrationWidgets(context);
-              }
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: children,
-              );
-            },
-          ),
-        ),
-        Spacer(),
-        BlocBuilder<AuthBloc, AuthState>(builder: (_, state) {
-          String buttonText;
-          AuthType authType;
-          if (state is LoginState) {
-            buttonText = 'Login';
-            authType = AuthType.Login;
-          } else if (state is RegisterState) {
-            buttonText = 'Register';
-            authType = AuthType.Register;
-          }
-
-          return RoundedRectangleButton(
-            onPressed: () {
-              BlocProvider.of<AuthBloc>(context)
-                  .add(AttemptAuthEvent(authType));
-            },
-            buttonText: buttonText ?? '',
-            buttonColour: Colors.black,
-            buttonTextColour: Colors.white,
-          );
-        })
-      ],
+        if (state is LoginState) {
+          contentWidget = _getWidgets(context, AuthType.Login);
+        } else if (state is RegisterState) {
+          contentWidget = _getWidgets(context, AuthType.Register);
+        } else if (state is AuthLoading) {
+          contentWidget = _getLoadingWidget();
+        }
+        return contentWidget;
+      },
+      listener: (context, state) {
+        if (state is AuthSuccess) {
+          Navigator.pushReplacementNamed(context, MenuScreen.id);
+        }
+      },
     );
   }
 
-  List<Widget> getLoginWidgets(BuildContext context) {
+  /// Method responsible for returning the circular progress indicator.
+  ///
+  Widget _getLoadingWidget() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  /// Method responsible for returning the widgets based on the current
+  /// state i.e. returning login widgets for login state and register
+  /// widgets for register state.
+  ///
+  Widget _getWidgets(BuildContext context, AuthType authType) {
+    List<Widget> screenWidgets = [
+      Hero(
+        tag: 'logo',
+        child: CircleAvatar(
+          child: Text('B'),
+          radius: 36.0,
+        ),
+      ),
+      SizedBox(
+        height: 24.0,
+      ),
+      Text(
+        'Butler',
+        style: kTitleTextStyle,
+        textAlign: TextAlign.center,
+      ),
+      Spacer(),
+    ];
+
+    Widget authCredentialsWidget = Expanded(
+      flex: 2,
+      child: Column(
+        children: authType == AuthType.Login
+            ? _getLoginWidgets(context)
+            : _getRegistrationWidgets(context),
+      ),
+    );
+
+    List<Widget> authControlWidgets = [
+      Spacer(),
+      RoundedRectangleButton(
+        onPressed: () {
+          BlocProvider.of<AuthBloc>(context).add(AttemptAuthEvent(authType));
+        },
+        buttonText: _getAuthenticationButtonText(authType),
+        buttonColour: Colors.black,
+        buttonTextColour: Colors.white,
+      ),
+    ];
+
+    // Merge the children
+    screenWidgets.add(authCredentialsWidget);
+    screenWidgets.addAll(authControlWidgets);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: screenWidgets,
+    );
+  }
+
+  /// Method to get login widgets.
+  ///
+  List<Widget> _getLoginWidgets(BuildContext context) {
     return [
       ModifiedTextField(
         label: 'Email',
@@ -115,7 +130,7 @@ class AuthScreen extends StatelessWidget {
         onChanged: (val) {
           BlocProvider.of<AuthBloc>(context).add(InfoEntryEvent(
             val,
-            InfoType.Email,
+            CredentialType.Email,
           ));
         },
       ),
@@ -126,14 +141,16 @@ class AuthScreen extends StatelessWidget {
         onChanged: (val) {
           BlocProvider.of<AuthBloc>(context).add(InfoEntryEvent(
             val,
-            InfoType.Password,
+            CredentialType.Password,
           ));
         },
       ),
     ];
   }
 
-  List<Widget> getRegistrationWidgets(BuildContext context) {
+  /// Method to get registration widgets.
+  ///
+  List<Widget> _getRegistrationWidgets(BuildContext context) {
     return [
       // TODO add the registration fields
       ModifiedTextField(
@@ -148,5 +165,16 @@ class AuthScreen extends StatelessWidget {
         borderRadius: 44.0,
       ),
     ];
+  }
+
+  /// Method to get the authentication button text based on the
+  /// current state, i.e. Login for login state and Register for
+  /// register state.
+  ///
+  String _getAuthenticationButtonText(AuthType authType) {
+    if (authType == AuthType.Login)
+      return 'Login';
+    else
+      return 'Register';
   }
 }
