@@ -14,3 +14,5 @@ class MusicState extends MenuState {}
 class GameState extends MenuState {}
 
 class BookState extends MenuState {}
+
+class TVShowState extends MenuState {}

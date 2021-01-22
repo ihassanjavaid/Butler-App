@@ -12,3 +12,5 @@ class MusicEvent extends MenuEvent {}
 class GameEvent extends MenuEvent {}
 
 class BookEvent extends MenuEvent {}
+
+class TVShowEvent extends MenuEvent {}

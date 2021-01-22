@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:butler_app/src/resources/services/movie_service.dart';
 import 'package:meta/meta.dart';
-
 part 'menu_event.dart';
 part 'menu_state.dart';
 
@@ -21,6 +21,10 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       yield GameState();
     } else if (event is BookEvent) {
       yield BookState();
+    } else if (event is PodcastEvent) {
+      yield PodcastState();
+    } else if (event is TVShowEvent) {
+      yield TVShowState();
     }
   }
 }
