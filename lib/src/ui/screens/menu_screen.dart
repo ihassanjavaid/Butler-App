@@ -91,9 +91,9 @@ class MenuScreen extends StatelessWidget {
                 onTap: () {
                   // Navigator.pushNamed(context, LibraryScreen.id);
                 },
-                icon: FontAwesomeIcons.user,
+                icon: Icons.mic,
                 color: kBackgroundColor,
-                iconSize: 40,
+                iconSize: 42,
               ),
             ],
           ),
