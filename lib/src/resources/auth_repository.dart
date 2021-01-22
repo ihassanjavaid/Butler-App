@@ -1,7 +1,7 @@
-import 'package:butler_app/src/models/login_model.dart';
+import 'package:butler_app/src/models/auth_credentials.dart';
 import 'package:butler_app/src/resources/services/auth_service.dart';
 
-enum InfoType {
+enum CredentialType {
   Email,
   Password,
 }
@@ -18,14 +18,14 @@ class AuthRepository {
     _auth = Auth();
   }
 
-  void login(LoginModel loginModel) async {
+  void login(AuthCredentials loginModel) async {
     await _auth.loginUserWithEmailAndPassword(
       email: loginModel.email,
       password: loginModel.password,
     );
   }
 
-  void register(LoginModel loginModel) async {
+  void register(AuthCredentials loginModel) async {
     await _auth.registerUser(
       email: loginModel.email,
       password: loginModel.password,
