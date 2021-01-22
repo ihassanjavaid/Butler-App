@@ -51,6 +51,9 @@ class AuthScreen extends StatelessWidget {
       },
       listener: (context, state) {
         if (state is AuthSuccess) {
+          while (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
           Navigator.pushReplacementNamed(context, MenuScreen.id);
         }
       },
