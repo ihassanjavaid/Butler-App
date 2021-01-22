@@ -90,8 +90,6 @@ class AuthScreen extends StatelessWidget {
           ),
         ],
       ),
-
-      // Spacer(),
     ];
 
     Widget authCredentialsWidget = Column(
@@ -102,7 +100,6 @@ class AuthScreen extends StatelessWidget {
     );
 
     List<Widget> authControlWidgets = [
-      // Spacer(),
       RoundedRectangleButton(
         onPressed: () {
           BlocProvider.of<AuthBloc>(context).add(AttemptAuthEvent(authType));
