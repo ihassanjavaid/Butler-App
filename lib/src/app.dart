@@ -1,4 +1,5 @@
 import 'package:butler_app/src/bloc/auth_bloc.dart';
+import 'package:butler_app/src/bloc/menu_bloc.dart';
 import 'package:butler_app/src/resources/auth_repository.dart';
 import 'package:butler_app/src/ui/screens/auth_screen.dart';
 import 'package:butler_app/src/ui/screens/landing_screen.dart';
@@ -15,6 +16,9 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (_) => AuthBloc(AuthRepository()),
         ),
+        BlocProvider(
+          create: (_) => MenuBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -24,7 +28,7 @@ class App extends StatelessWidget {
           MenuScreen.id: (context) => MenuScreen(),
           LibraryScreen.id: (context) => LibraryScreen(),
         },
-        initialRoute: LandingScreen.id,
+        initialRoute: MenuScreen.id, // TODO fix route after dev
       ),
     );
   }
