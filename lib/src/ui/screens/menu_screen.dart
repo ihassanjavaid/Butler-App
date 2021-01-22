@@ -6,14 +6,9 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MenuScreen extends StatefulWidget {
+class MenuScreen extends StatelessWidget {
   static const String id = 'menu_screen';
 
-  @override
-  _MenuScreenState createState() => _MenuScreenState();
-}
-
-class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,7 +20,7 @@ class _MenuScreenState extends State<MenuScreen> {
         child: CircularMenu(
           alignment: Alignment.center,
           radius: 100,
-          animationDuration: Duration(milliseconds: 2000),
+          animationDuration: Duration(milliseconds: 1000),
           curve: Curves.fastLinearToSlowEaseIn,
           reverseCurve: Curves.fastOutSlowIn,
           startingAngleInRadian: 0,
