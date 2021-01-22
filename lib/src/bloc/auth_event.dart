@@ -25,7 +25,7 @@ class AttemptAuthEvent extends AuthEvent {
 
 class InfoEntryEvent extends AuthEvent {
   final String credential;
-  final InfoType credentialType;
+  final CredentialType credentialType;
 
   InfoEntryEvent(this.credential, this.credentialType);
 
