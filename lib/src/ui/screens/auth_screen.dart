@@ -14,19 +14,7 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: LayoutBuilder(
-          builder: (_, BoxConstraints constraints) {
-            return SingleChildScrollView(
-              padding: const EdgeInsets.all(12.0),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
-                child: _setupPageContent(context),
-              ),
-            );
-          },
-        ),
+        child: _setupPageContent(context),
       ),
     );
   }
@@ -49,7 +37,17 @@ class AuthScreen extends StatelessWidget {
         } else if (state is AuthLoading) {
           contentWidget = _getLoadingWidget();
         }
-        return contentWidget;
+        return LayoutBuilder(builder: (_, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(12.0),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: IntrinsicHeight(child: contentWidget),
+            ),
+          );
+        });
       },
       listener: (context, state) {
         if (state is AuthSuccess) {
@@ -67,47 +65,44 @@ class AuthScreen extends StatelessWidget {
     );
   }
 
-  Widget _getContentWidget(BuildContext context, AuthType authType) {
-    return ListView(
-      children: _getContentWidgets(context, authType),
-    );
-  }
-
   /// Method responsible for returning the list of widgets based on the
   /// current state i.e. returning login widgets for login state and
   /// register widgets for register state.
   ///
-  List<Widget> _getContentWidgets(BuildContext context, AuthType authType) {
+  Widget _getContentWidget(BuildContext context, AuthType authType) {
     List<Widget> screenWidgets = [
-      Hero(
-        tag: 'logo',
-        child: CircleAvatar(
-          child: Text('B'),
-          radius: 36.0,
-        ),
+      Column(
+        children: [
+          Hero(
+            tag: 'logo',
+            child: CircleAvatar(
+              child: Text('B'),
+              radius: 36.0,
+            ),
+          ),
+          SizedBox(
+            height: 24.0,
+          ),
+          Text(
+            'Butler',
+            style: kTitleTextStyle,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
-      SizedBox(
-        height: 24.0,
-      ),
-      Text(
-        'Butler',
-        style: kTitleTextStyle,
-        textAlign: TextAlign.center,
-      ),
-      Spacer(),
+
+      // Spacer(),
     ];
 
-    Widget authCredentialsWidget = Expanded(
-      flex: 2,
-      child: Column(
-        children: authType == AuthType.Login
-            ? _getLoginWidgets(context)
-            : _getRegistrationWidgets(context),
-      ),
+    Widget authCredentialsWidget = Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: authType == AuthType.Login
+          ? _getLoginWidgets(context)
+          : _getRegistrationWidgets(context),
     );
 
     List<Widget> authControlWidgets = [
-      Spacer(),
+      // Spacer(),
       RoundedRectangleButton(
         onPressed: () {
           BlocProvider.of<AuthBloc>(context).add(AttemptAuthEvent(authType));
@@ -122,7 +117,11 @@ class AuthScreen extends StatelessWidget {
     screenWidgets.add(authCredentialsWidget);
     screenWidgets.addAll(authControlWidgets);
 
-    return screenWidgets;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: screenWidgets,
+    );
   }
 
   /// Method to get login widgets.
@@ -140,6 +139,9 @@ class AuthScreen extends StatelessWidget {
             CredentialType.Email,
           ));
         },
+      ),
+      SizedBox(
+        height: 24.0,
       ),
       ModifiedTextField(
         label: 'Password',
