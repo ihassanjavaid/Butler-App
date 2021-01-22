@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:butler_app/src/models/login_model.dart';
+import 'package:butler_app/src/models/auth_credentials.dart';
 import 'package:meta/meta.dart';
 
 import 'package:butler_app/src/resources/auth_repository.dart';
@@ -11,7 +11,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
-  LoginModel _loginModel;
+  AuthCredentials _loginModel;
 
   AuthBloc(
     this._authRepository,
@@ -26,26 +26,43 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else if (event is RegisterEvent) {
       yield RegisterState();
     } else if (event is InfoEntryEvent) {
-      if (_loginModel == null) {
-        _loginModel = LoginModel();
-      }
-      if (event.infoType == InfoType.Email) {
-        _loginModel.email = event.info;
-      } else {
-        _loginModel.password = event.info;
-      }
+      _updateLoginCredentials(event.credential, event.credentialType);
     } else if (event is AttemptAuthEvent) {
       try {
         yield AuthLoading();
-        if (event.authType == AuthType.Login) {
-          _authRepository.login(_loginModel);
-        } else {
-          _authRepository.register(_loginModel);
-        }
+
+        _performAuthentication(event.authType);
+
         yield AuthSuccess();
       } catch (err) {
         yield AuthFailure();
       }
+    }
+  }
+
+  /// Method to update user login credentials as they are entered
+  /// in the relevant text field widgets.
+  ///
+  void _updateLoginCredentials(
+      String credential, CredentialType credentialType) {
+    if (_loginModel == null) {
+      _loginModel = AuthCredentials();
+    }
+    if (credentialType == CredentialType.Email) {
+      _loginModel.updateEmail(credential);
+    } else {
+      _loginModel.updatePassword(credential);
+    }
+  }
+
+  /// Method to invoke the relevant authentication sequence making
+  /// use of the methods declared in the auth repository.
+  ///
+  void _performAuthentication(AuthType authType) {
+    if (authType == AuthType.Login) {
+      _authRepository.login(_loginModel);
+    } else {
+      _authRepository.register(_loginModel);
     }
   }
 }
