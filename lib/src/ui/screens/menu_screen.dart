@@ -6,8 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 class MenuScreen extends StatelessWidget {
   static const String id = 'menu_screen';
 
@@ -43,7 +41,7 @@ class MenuScreen extends StatelessWidget {
                 blurRadius: 10,
               ),
             ],
-            toggleButtonIconColor: kGreyColor,
+            toggleButtonIconColor: kDefaultIconColour,
             toggleButtonMargin: 10.0,
             toggleButtonPadding: 20.0,
             toggleButtonSize: 48.0,
@@ -82,14 +80,16 @@ class MenuScreen extends StatelessWidget {
                 iconSize: 42,
               ),
               CircularMenuItem(
-                onTap: () {},
+                onTap: () {
+                  BlocProvider.of<MenuBloc>(context).add(TVShowEvent());
+                },
                 icon: Icons.tv,
                 color: kBackgroundColor,
                 iconSize: 42,
               ),
               CircularMenuItem(
                 onTap: () {
-                  // Navigator.pushNamed(context, LibraryScreen.id);
+                  BlocProvider.of<MenuBloc>(context).add(PodcastEvent());
                 },
                 icon: Icons.mic,
                 color: kBackgroundColor,
