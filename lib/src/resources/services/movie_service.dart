@@ -2,24 +2,25 @@ import 'dart:async';
 import 'package:butler_app/src/resources/services/http_request.dart';
 import 'package:butler_app/src/resources/utilities/APIKey.dart';
 
-class MovieService{
-
+class MovieService {
   Future<MovieSearchResult> getMovieSearchResult(String query) async {
-    String searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=${APIkey.movie_api_key}&language=en-US&page=1&include_adult=true&query=$query";
+    String searchUrl =
+        "https://api.themoviedb.org/3/search/movie?api_key=${APIkey.movie_api_key}&language=en-US&page=1&include_adult=true&query=$query";
 
     final movieSearchResponse = await getData(searchUrl);
-    MovieSearchResult movieSearchResult = MovieSearchResult.fromJson(movieSearchResponse);
+    MovieSearchResult movieSearchResult =
+        MovieSearchResult.fromJson(movieSearchResponse);
     return movieSearchResult;
   }
 
   Future<MovieDetail> getMovieDetail(int id) async {
-    String detUrl = "https://api.themoviedb.org/$id/movie/12?api_key=${APIkey.movie_api_key}&language=en-US";
+    String detUrl =
+        "https://api.themoviedb.org/$id/movie/12?api_key=${APIkey.movie_api_key}&language=en-US";
 
     final movieDetailResponse = await getData(detUrl);
     MovieDetail movieDetail = MovieDetail.fromJson(movieDetailResponse);
     return movieDetail;
   }
-
 }
 
 class MovieSearchResult {
@@ -100,7 +101,7 @@ class Results {
     releaseDate = json['release_date'];
     title = json['title'];
     video = json['video'];
-    voteAverage = json['vote_average'];
+    // voteAverage = json['vote_average'];
     voteCount = json['vote_count'];
   }
 
@@ -144,21 +145,21 @@ class MovieDetail {
 
   MovieDetail(
       {this.adult,
-        this.genres,
-        this.id,
-        this.originalLanguage,
-        this.originalTitle,
-        this.overview,
-        this.popularity,
-        this.posterPath,
-        this.releaseDate,
-        this.runtime,
-        this.spokenLanguages,
-        this.status,
-        this.tagline,
-        this.title,
-        this.voteAverage,
-        this.voteCount});
+      this.genres,
+      this.id,
+      this.originalLanguage,
+      this.originalTitle,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.releaseDate,
+      this.runtime,
+      this.spokenLanguages,
+      this.status,
+      this.tagline,
+      this.title,
+      this.voteAverage,
+      this.voteCount});
 
   MovieDetail.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
@@ -250,4 +251,3 @@ class SpokenLanguages {
     return data;
   }
 }
-

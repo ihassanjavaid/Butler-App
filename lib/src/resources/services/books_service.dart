@@ -1,14 +1,13 @@
-import 'package:butler_app/src/resources/menu_repository.dart';
 import 'package:butler_app/src/resources/services/http_request.dart';
 
-class BooksService{
-
+class BooksService {
   Future<BookSearchResult> getBooksSearch(String query) async {
     final url = "https://www.googleapis.com/books/v1/volumes?q=$query";
 
     final bookSearchResponse = await getData(url);
 
-    BookSearchResult bookSearchResult = BookSearchResult.fromJson(bookSearchResponse);
+    BookSearchResult bookSearchResult =
+        BookSearchResult.fromJson(bookSearchResponse);
     return bookSearchResult;
   }
 }
@@ -54,13 +53,13 @@ class BookItem {
 
   BookItem(
       {this.kind,
-        this.id,
-        this.etag,
-        this.selfLink,
-        this.volumeInfo,
-        this.saleInfo,
-        this.accessInfo,
-        this.searchInfo});
+      this.id,
+      this.etag,
+      this.selfLink,
+      this.volumeInfo,
+      this.saleInfo,
+      this.accessInfo,
+      this.searchInfo});
 
   BookItem.fromJson(Map<String, dynamic> json) {
     kind = json['kind'];
@@ -129,27 +128,27 @@ class VolumeInfo {
 
   VolumeInfo(
       {this.title,
-        this.authors,
-        this.publisher,
-        this.description,
-        this.industryIdentifiers,
-        this.readingModes,
-        this.printType,
-        this.categories,
-        this.maturityRating,
-        this.allowAnonLogging,
-        this.contentVersion,
-        this.panelizationSummary,
-        this.imageLinks,
-        this.language,
-        this.previewLink,
-        this.infoLink,
-        this.canonicalVolumeLink,
-        this.publishedDate,
-        this.pageCount,
-        this.averageRating,
-        this.ratingsCount,
-        this.subtitle});
+      this.authors,
+      this.publisher,
+      this.description,
+      this.industryIdentifiers,
+      this.readingModes,
+      this.printType,
+      this.categories,
+      this.maturityRating,
+      this.allowAnonLogging,
+      this.contentVersion,
+      this.panelizationSummary,
+      this.imageLinks,
+      this.language,
+      this.previewLink,
+      this.infoLink,
+      this.canonicalVolumeLink,
+      this.publishedDate,
+      this.pageCount,
+      this.averageRating,
+      this.ratingsCount,
+      this.subtitle});
 
   VolumeInfo.fromJson(Map<String, dynamic> json) {
     title = json['title'];
@@ -336,15 +335,15 @@ class AccessInfo {
 
   AccessInfo(
       {this.country,
-        this.viewability,
-        this.embeddable,
-        this.publicDomain,
-        this.textToSpeechPermission,
-        this.epub,
-        this.pdf,
-        this.webReaderLink,
-        this.accessViewStatus,
-        this.quoteSharingAllowed});
+      this.viewability,
+      this.embeddable,
+      this.publicDomain,
+      this.textToSpeechPermission,
+      this.epub,
+      this.pdf,
+      this.webReaderLink,
+      this.accessViewStatus,
+      this.quoteSharingAllowed});
 
   AccessInfo.fromJson(Map<String, dynamic> json) {
     country = json['country'];
