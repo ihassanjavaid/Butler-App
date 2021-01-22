@@ -5,10 +5,10 @@ abstract class MenuState {}
 
 class MenuInitial extends MenuState {}
 
-class MovieMenu extends MenuState {}
+class MovieState extends MenuState {}
 
-class PodcastMenu extends MenuState {}
+class PodcastState extends MenuState {}
 
-class MusicMenu extends MenuState {}
+class MusicState extends MenuState {}
 
-class GameMenu extends MenuState {}
+class GameState extends MenuState {}
