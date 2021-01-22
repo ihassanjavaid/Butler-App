@@ -2,6 +2,13 @@ import 'package:butler_app/src/resources/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatelessWidget {
+  final Function onChanged;
+
+  const Search({
+    Key key,
+    @required this.onChanged,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -12,6 +19,7 @@ class Search extends StatelessWidget {
         color: kBackgroundColor,
         height: 42,
         child: TextField(
+          onChanged: this.onChanged,
           decoration: InputDecoration(
             hintText: 'Search',
             hintStyle: TextStyle(
@@ -30,7 +38,7 @@ class Search extends StatelessWidget {
               Icons.search,
               color: Colors.grey[700],
             ),
-            fillColor: kGreyColor,
+            fillColor: kDefaultIconColour,
             filled: true,
           ),
         ),
