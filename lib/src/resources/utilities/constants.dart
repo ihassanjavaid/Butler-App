@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kTitleTextStyle = TextStyle(
-  fontSize: 20.0,
+  fontSize: 24.0,
 );
 
 const kButtonTextStyle = TextStyle(

@@ -13,6 +13,7 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -25,7 +26,13 @@ class LandingScreen extends StatelessWidget {
               Hero(
                 tag: 'logo',
                 child: CircleAvatar(
-                  child: Text('B'),
+                  //foregroundColor: kSelectedIconColour,
+                  backgroundColor: kSelectedIconColour,
+                  child: Text(
+                    'B',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 66.0, color: kBackgroundColor),
+                  ),
                   radius: 46.0,
                 ),
               ),
@@ -34,7 +41,7 @@ class LandingScreen extends StatelessWidget {
               ),
               Text(
                 'Butler',
-                style: kTitleTextStyle,
+                style: kTitleTextStyle.copyWith(color: kDefaultIconColour, fontSize: 36),
                 textAlign: TextAlign.center,
               ),
               Spacer(),
@@ -43,11 +50,13 @@ class LandingScreen extends StatelessWidget {
                   BlocProvider.of<AuthBloc>(context).add(LoginEvent());
                   Navigator.pushNamed(context, AuthScreen.id);
                 },
-                buttonText: 'Login',
-                buttonColour: Colors.black,
+                buttonText: 'Sign In',
+                buttonColour: kSelectedIconColour,
                 buttonTextColour: Colors.white,
               ),
-
+              SizedBox(
+                height: 10,
+              ),
               RoundedRectangleButton(
                 onPressed: () {
                   BlocProvider.of<AuthBloc>(context).add(RegisterEvent());

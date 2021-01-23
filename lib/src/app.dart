@@ -28,7 +28,7 @@ class App extends StatelessWidget {
           MenuScreen.id: (context) => MenuScreen(),
           LibraryScreen.id: (context) => LibraryScreen(),
         },
-        initialRoute: MenuScreen.id, // TODO fix route after dev
+        initialRoute: LandingScreen.id, // TODO fix route after dev
       ),
     );
   }
