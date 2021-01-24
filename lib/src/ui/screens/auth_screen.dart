@@ -176,7 +176,11 @@ class AuthScreen extends StatelessWidget {
         borderRadius: 44.0,
         prefixIcon: Icon(Icons.mail),
       ),
+      SizedBox(
+        height: 24.0,
+      ),
       ModifiedTextField(
+        prefixIcon: Icon(Icons.vpn_key),
         label: 'Password',
         obscureText: true,
         borderRadius: 44.0,
