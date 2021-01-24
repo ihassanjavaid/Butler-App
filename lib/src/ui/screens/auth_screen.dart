@@ -13,6 +13,7 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       body: SafeArea(
         child: _setupPageContent(context),
       ),
@@ -79,8 +80,14 @@ class AuthScreen extends StatelessWidget {
           Hero(
             tag: 'logo',
             child: CircleAvatar(
-              child: Text('B'),
-              radius: 36.0,
+              //foregroundColor: kSelectedIconColour,
+              backgroundColor: kSelectedIconColour,
+              child: Text(
+                'B',
+                style:
+                TextStyle(fontWeight: FontWeight.bold, fontSize: 66.0, color: kBackgroundColor),
+              ),
+              radius: 46.0,
             ),
           ),
           SizedBox(
@@ -88,7 +95,7 @@ class AuthScreen extends StatelessWidget {
           ),
           Text(
             'Butler',
-            style: kTitleTextStyle,
+            style: kTitleTextStyle.copyWith(color: kDefaultIconColour, fontSize: 36),
             textAlign: TextAlign.center,
           ),
         ],
@@ -108,8 +115,8 @@ class AuthScreen extends StatelessWidget {
           BlocProvider.of<AuthBloc>(context).add(AttemptAuthEvent(authType));
         },
         buttonText: _getAuthenticationButtonText(authType),
-        buttonColour: Colors.black,
-        buttonTextColour: Colors.white,
+        buttonColour: kDefaultIconColour,
+        buttonTextColour: Colors.black,
       ),
     ];
 
@@ -146,6 +153,7 @@ class AuthScreen extends StatelessWidget {
       ModifiedTextField(
         label: 'Password',
         obscureText: true,
+        prefixIcon: Icon(Icons.vpn_key),
         borderRadius: 44.0,
         onChanged: (val) {
           BlocProvider.of<AuthBloc>(context).add(InfoEntryEvent(

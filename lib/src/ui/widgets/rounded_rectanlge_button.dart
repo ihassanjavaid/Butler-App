@@ -21,25 +21,29 @@ class RoundedRectangleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: this.onPressed,
-      child: child ??
-          Text(
-            this.buttonText,
-            style: kButtonTextStyle.copyWith(
-              color: this.buttonTextColour,
+    return Container(
+      height: 50,
+      width: MediaQuery.of(context).size.width,
+      child: ElevatedButton(
+        onPressed: this.onPressed,
+        child: child ??
+            Text(
+              this.buttonText,
+              style: kButtonTextStyle.copyWith(
+                color: this.buttonTextColour,
+              ),
+            ),
+        style: ButtonStyle(
+          side: MaterialStateProperty.all<BorderSide>(
+            BorderSide(
+              color: Colors.black,
             ),
           ),
-      style: ButtonStyle(
-        side: MaterialStateProperty.all<BorderSide>(
-          BorderSide(
-            color: Colors.black,
-          ),
-        ),
-        backgroundColor: MaterialStateProperty.all<Color>(this.buttonColour),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(this.buttonBorderRadius),
+          backgroundColor: MaterialStateProperty.all<Color>(this.buttonColour),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(this.buttonBorderRadius),
+            ),
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:butler_app/src/resources/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -54,9 +55,9 @@ class ModifiedTextField extends StatelessWidget {
         controller: _textController,
         keyboardType: this.keyboardType,
         inputFormatters: this.inputFormatter,
-        cursorColor: Colors.black45,
+        cursorColor: kDefaultIconColour,
         style: TextStyle(
-          color: Colors.black87,
+          color: kDefaultIconColour,
         ),
         decoration: InputDecoration(
           prefixIcon: this.prefixIcon,
@@ -64,13 +65,13 @@ class ModifiedTextField extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           suffixIcon: this.suffixIcon,
           labelStyle: TextStyle(
-            color: Colors.black54,
+            color: kDefaultIconColour,
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: this.borderColour != null
                   ? this.borderColour
-                  : Colors.black54,
+                  : kDefaultIconColour,
             ),
             borderRadius: BorderRadius.circular(this.borderRadius),
           ),
@@ -78,10 +79,10 @@ class ModifiedTextField extends StatelessWidget {
             borderSide: BorderSide(
               color: this.focusedBorderColour != null
                   ? this.focusedBorderColour
-                  : Colors.white,
+                  : kDefaultIconColour,
               width: 2.0,
             ),
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(this.borderRadius),
           ),
         ),
         onChanged: this.onChanged,
