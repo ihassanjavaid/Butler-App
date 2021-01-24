@@ -10,5 +10,7 @@ const kButtonTextStyle = TextStyle(
 );
 
 const kBackgroundColor = Color(0xff0A1529);
+const kDullBlueColor = Color(0xff222C3E);
+
 const kDefaultIconColour = Color(0xffdadada);
 const kSelectedIconColour = Color(0xFFDF4E67);

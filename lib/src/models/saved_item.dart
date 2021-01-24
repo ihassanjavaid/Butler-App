@@ -6,5 +6,5 @@ class SavedItem{
   String by;
   String language;
 
-  SavedItem({this.name, @required this.type, this.by, this.language});
+  SavedItem({this.name, @required this.type, this.by = 'null', this.language});
 }

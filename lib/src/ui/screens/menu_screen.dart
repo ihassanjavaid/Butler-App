@@ -101,10 +101,10 @@ class MenuScreen extends StatelessWidget {
           ),
         ),
         /// TODO remove this - for testing
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.info_outline),
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {},
+        //   child: Icon(Icons.info_outline),
+        // ),
       ),
     );
   }
