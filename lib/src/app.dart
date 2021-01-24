@@ -1,6 +1,8 @@
 import 'package:butler_app/src/bloc/auth_bloc.dart';
+import 'package:butler_app/src/bloc/library_bloc.dart';
 import 'package:butler_app/src/bloc/menu_bloc.dart';
 import 'package:butler_app/src/resources/auth_repository.dart';
+import 'package:butler_app/src/resources/library_repository.dart';
 import 'package:butler_app/src/ui/screens/auth_screen.dart';
 import 'package:butler_app/src/ui/screens/landing_screen.dart';
 import 'package:butler_app/src/ui/screens/library_screen.dart';
@@ -18,6 +20,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => MenuBloc(),
+        ),
+        BlocProvider(
+          create: (_) => LibraryBloc(LibraryRepository()),
         ),
       ],
       child: MaterialApp(
